@@ -265,7 +265,7 @@ function main() {
 
   const productList = publishedProducts
     .map((x) => {
-      const cover = String(x.picurl || '').trim() || '/images/about_img.jpg'
+      const cover = String(x.picurl || '').trim()
       const gallery = asArray(x.picarr)
       return {
         id: Number(x.id),
@@ -273,11 +273,11 @@ function main() {
         title: String(x.title || '').trim(),
         summary: toSnippet(x.description || x.content || x.title, 48),
         cover,
-        gallery: gallery.length ? gallery : [cover],
+        gallery: gallery.length ? gallery : (cover ? [cover] : []),
         content: stripHtml(x.content || x.description || x.title),
       }
     })
-    .filter((x) => x.title)
+    .filter((x) => x.title && x.cover)
     .sort((a, b) => b.id - a.id)
 
   const banners = publishedProducts
