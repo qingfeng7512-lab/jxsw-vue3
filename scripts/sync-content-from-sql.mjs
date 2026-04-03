@@ -277,7 +277,7 @@ function main() {
         content: stripHtml(x.content || x.description || x.title),
       }
     })
-    .filter((x) => x.title)
+    .filter((x) => x.title && x.cover)
     .sort((a, b) => b.id - a.id)
 
   const banners = publishedProducts
